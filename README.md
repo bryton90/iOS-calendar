@@ -19,9 +19,12 @@ This project is an iOS calendar application designed to help users manage their 
 To get started with the project, follow these steps:
 
 1. Clone the repository:
+
    ```sh
    git clone https://github.com/your-username/ios-calendar.git
+
 2. Navigate to the project directory:
+
    cd ios-calendar
 
 3. Open the project in your prefered IDE & build the application
@@ -34,12 +37,15 @@ Start adding your events and managing your schedule!
 We welcome contributions to improve the iOS Calendar project! To contribute, please follow these steps:
 
 1. Fork the repository.
+
 2. Create a new branch:
+
    git checkout -b feature/your-feature-name
+
 3. Make your changes and commit them:
 
    git commit -m "Add your commit message"
-   
+
 4. Push to the branch:
 
    git push origin feature/your-feature-name
