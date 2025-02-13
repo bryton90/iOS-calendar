@@ -31,6 +31,7 @@ To get started with the project, follow these steps:
 
 # Usage #
 Launch the application on your iOS device or simulator.
+
 Start adding your events and managing your schedule!
 
 # Contributing #
