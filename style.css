@@ -1,0 +1,202 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+html {
+     font-size: 10px;
+     width: 100%;
+     height: 100%;
+}
+
+html body{
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    user-select: none;
+    cursor: default;
+}
+
+html span{
+    vertical-align: top;
+
+}
+
+.calendarContainer{
+    width: 700px;
+    margin: 0 auto;
+
+}
+.calendarContainer .dayCellsViewPort{
+    width: 700px;
+    height:100%;
+    position: absolute;
+    overflow:hidden;
+
+}
+
+.calendarContainer .dayCellsViewPoint .dayCellsWrap{
+    width: 1400px;
+    height: 490px;
+}
+
+.carouselInc-enter{
+    margin-left: 700px;
+}
+
+.carouselInc-enter-active{
+    margin-left: 0px;
+    transition: all 300ms linear;
+}
+
+.carouselInc-leave{
+    margin-left: -1400px;
+}
+
+.carouselInc-leave-active{
+    margin-left: -1400px;
+    transition: all 300ms linear;
+}
+
+.carouselDec-enter{
+    margin-left: -700px;
+}
+
+.carouselDev-enter-active{
+    margin-left: 0px;
+    transition: all 300ms linear;
+}
+
+.carouselDec-leave{
+    margin-left: 0px;
+}
+
+.carouselDec-leave-active{
+    margin-left: 0;
+    transition: all 300ms linear;
+}
+
+.monthYearTitleContainer .monthWrap, .monthYearTitleContainer .yearWrap{
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ff3b30;
+}
+
+.monthYearTitleContainer .yearWrap{
+    padding: 20px 0 0 5px;
+    font-size: 2rem;
+}
+.weekdayTitleContainer{
+    width: 700px;
+    margin: 0 auto;
+}
+
+.weekdayTitleContainer .weekWrap{
+    padding:20px 20px 10px;
+    width: 60px;
+    display: inline-block;
+    text-align: center;
+    font-size: 2.2rem;
+}
+
+.calendarWrap{
+    display: inline-block;
+}
+
+.calendarWrap .dayCellContainer{
+    width: 700px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.calendarWrap .dayCellContainer .cell, .calendarWrap .dayCellContainer .cell-blank{
+    width: 60px;
+    height: 70px;
+    padding: 15px 20px 10px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.14);
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+}
+
+.calendarWrap .dayCellContainer .cell-blank{
+    border-top: 0.5px solid transparent;
+} 
+
+.calendarWrap .dayCellContainer .dayNum{
+    width: 5rem;
+    padding: 1.25rem 0;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.selected{
+    background-color: #ff3b30;
+    color: white;
+}
+
+.arrow-wrap{
+    position:absolute;
+    width: 0;
+    height: 0;
+
+}
+
+.arrow-wrap .arrow{
+    width: 30px;
+    height: 30px;
+    border-left: 2px solid rgba(0, 0, 0, 0.14);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.14);
+    cursor: pointer;
+}
+
+.arrow-wrap .arrow-left{
+    transform: rotate(45deg);
+    margin: 200px 0 0 -60px;
+}
+
+.arrow-wrap .arrow-right{
+    transform: rotate(-135deg);
+    margin: 200px 0 0 730px;
+}
+
+@media screen and (max-width: 768px) {
+    html{
+        height: 120vh;
+        font-size: 8.8px;
+    }
+    html body{
+        margin: 0.5px;
+    }
+    .calendarContainer{
+        max-width: 100vw;
+        min-width: 320px;
+        margin: 0;
+        position: fixed;
+    }
+    .calendarContainer .dayCellsViewPort{
+        max-width: 100vw;
+        overflow: visible;
+    }
+    .monthYearTitleContainer{
+        width: 100vw;
+        min-width: 320px;
+        max-width: 100vw;
+    }
+    .monthYearTitleContainer .monthWrap{
+        padding: 20px 5px 0 8px;
+    }
+    .weekdayTitleContainer .weekWrap{
+        width: 14vw;
+        padding: 10px 0;
+    }
+    .calendarWrap .dayCellContainer{
+        width: 100vw;
+        min-width: 320px;
+        max-width: 100vw;
+    }
+    .calendarWrap .dayCellContainer .cell, .calendarWrap .dayCellContainer .cell-blank{
+        width: 14vw;
+        padding: 15px 0 10px;
+    }
+}
