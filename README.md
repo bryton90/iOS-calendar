@@ -12,7 +12,7 @@ This project is an iOS calendar application designed to help users manage their 
 - **Event Management**: Add, edit, and delete events with ease.
 - **Reminders**: Set reminders for important events.
 - **Multiple Views**: View your calendar by day, week, or month.
-- **User-Friendly Interface**: Simple and intuitive design for a seamless user experience.
+- **User-Friendly Interface** : Simple and intuitive design for a seamless user experience.
 
 ## Installation
 
