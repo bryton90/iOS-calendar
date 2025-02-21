@@ -138,11 +138,6 @@ class Daycells extends React.Component {
           )
         );
       });
-      return React.createElement(
-        "div",
-        { className: "dayCellsContainer" },
-        arr
-      );
     };
     return (React.createElement("div", { className: "calendarWrap" }, renderCalendar(dayIsClicked)));
   }
@@ -185,7 +180,7 @@ class Calender extends React.Component{
   handleMonthChange = (dir) => {
     const { Month, Year } = this.state;
     if(dir === "left"){
-      if(month === 1){
+      if(Month === 1){
         this.setState({Month: 12, Year: Year - 1, prevMonth: 1});
       }else{
         this.setState({Month: Month - 1, prevMonth: Month});
@@ -221,12 +216,13 @@ class Calender extends React.Component{
       swipeDirection = offsetX > 0 ? "left" : "right";
     } else {  
       swipeDirection = offsetY > 0 ? "down" : "up";
+      }
     }
   }
-    componentDidMount();{
-      document.addEventListener('touchstart', function (){}, true);
+    componentDidMount(){
+      document.addEventListener('touchstart', (e) => this.handleSwipeEvent (e, "start"), true);
     }
-    render ();{
+    render (){
       const { month, year, dayIsClicked, prevMonth } = this.state; 
       function monthChangeComp(prevMonth, month){
         if (month === 12 && prevMonth === 1){
@@ -245,7 +241,7 @@ class Calender extends React.Component{
       React.createElement('div', { className: 'calendarContainer' }, 
         React.createElement(MonYearTitle, { month: months[month], year: year }), 
         React.createElement(WeekdayTitle, null), React.createElement("div", { 
-          className: "dayCellsViewPoint", ontouchstart: e => this. handleSwipeEvent(e, "move"), 
+          className: "dayCellsViewPoint", onTouchStart: e => this. handleSwipeEvent(e, "start"), 
           ontouchEnd: e => this.handleSwipeEvent(e, "end")}, React.createElement(ReactCSSTransitionGroup, {
             className: "animOffset",
             transitionName: `${transitionStyle}`,
@@ -256,6 +252,6 @@ class Calender extends React.Component{
             React.createElement(MonthControls, {dir: "right", onArrowClick: this.handleMonthChange}) ))
     );
   }
-}}
+}
 
 ReactDOM.render(React.createElement("div", null, React.createElement(Calender, null)), document.getElementById("app"));
