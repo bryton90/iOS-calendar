@@ -106,7 +106,7 @@ class Daycells extends React.Component {
       this.props.onDayClick(id);
     }
   };
-  rrender() {
+  render() {
     const { month, year, dayIsClicked } = this.props;
 
     var currentMonthArr = this.calcDayCells(month, year);
