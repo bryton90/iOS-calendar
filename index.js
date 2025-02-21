@@ -22,11 +22,7 @@ var dir,
   offsetX,
   offsetY,
   startTime,
-  endTime,
-  duration,
-  swipeLength,
-  swipeAngle,
-  swipeDirection;
+  elapsedTime;
 
 const swipeTimeSpan = 100;
 const swipeMinOffset = 100;
@@ -82,7 +78,7 @@ class Daycells extends React.Component {
     let day = 1;
 
     while (day <= numofDays) {
-      var flexOrder = day & (7 === 0) ? weekdays[7] : weekdays[day % 7];
+      var flexOrder = day & 7 === 0 ? weekdays[7] : weekdays[day % 7];
       const styleName = `cell ${flexOrder}`;
       const id = `${day}${month}${year}`;
       rows.push({
@@ -111,13 +107,15 @@ class Daycells extends React.Component {
 
     var currentMonthArr = this.calcDayCells(month, year);
 
-    const renderCalendar = () => {
-      return currentMonthArr.map((item) => {
+    const arr = [];
+    const renderCalendar = dayIsClicked  => {
+       currentMonthArr.map((item) => {
         var style =
-          item.key === dayIsClicked && item.key[8] !== "b"
+          item.key === dayIsClicked && item.key[0] !== "b"
             ? "dayNum selected"
             : "dayNum";
-        return React.createElement(
+            arr.push(
+            React.createElement(
           "div",
           {
             key: item.key,
@@ -136,8 +134,9 @@ class Daycells extends React.Component {
             },
             item.dayNum
           )
-        );
+        ));
       });
+      return React.createElement("div", { className: "dayCellsContainer" }, arr);
     };
     return (React.createElement("div", { className: "calendarWrap" }, renderCalendar(dayIsClicked)));
   }
@@ -149,8 +148,8 @@ class MonthControl extends React.Component {
   } 
   render() {
     const { dir } = this.props;
-    return React.createElement('div', { className: 'arrowWrap' },React.createElement('div', { className: 'arrow', onClick: () => 
-      this.handleArrowClick('left') }, '<'),React.createElement('div', { className: 'arrow', onClick: () => this.handleArrowClick('right') }, '>'));
+    return React.createElement('div', { className: 'arrow-wrap' },React.createElement('div', { className: 'arrow ${dir}', onClick: () => {
+      this.handleArrowClick(dir);} }));
   }
 }
 
@@ -194,33 +193,31 @@ class Calender extends React.Component{
       }
     }
   }
-  handleSwipeEvent = (e, actions) => {
-    const touchEventObj = e.changedTouches[0];
-    if (actions === "start") {
-      startX = touchEventObj.pageX;
-      startY = touchEventObj.pageY;
-      startTime = new Date().getTime();
-    }else if (action === "end"){
-      elapsedTime = new Date().getTime() - startTime;
-      if(elapsedTime >= swipeTimeSpan){
-        if(Math.abs (offsetX) >= swipeMinOffset && Math.abs (offsetY) <= swipeRestraint){
-          this.handleMonthChange(swipeDirection);
+  handleSwipeEvent = (e, action)=>{
+      const touchEventObj = e.changedTouches[0];
+      if (action === "start") {
+        startX = touchEventObj.screenX;
+        startY = touchEventObj.screenY;
+        startTime = new Date().getTime();
+      }else if (action === "end"){
+        elapsedTime = new Date().getTime() - startTime;
+        if(elapsedTime >= swipeTimeSpan){
+          if(Math.abs (offsetX) >= swipeMinOffset && Math.abs (offsetY) <= swipeRestraint){
+            this.handleMonthChange(dir);
+            }
+            offsetX = 0;
+            offsetY = 0;
         }
-        offsetX = 0;
-        offsetY = 0;
-    }
-  }else {
-    offsetX = touchEventObj.pageX - startX;
-    offsetY = touchEventObj.pageY - startY;
-    if (Math.abs(offsetX) > Math.abs(offsetY)) {
-      swipeDirection = offsetX > 0 ? "left" : "right";
-    } else {  
-      swipeDirection = offsetY > 0 ? "down" : "up";
-      }
+    }else {
+      offsetX = touchEventObj.screenX - startX;
+      offsetY = touchEventObj.screenY - startY;
+      if (Math.abs(offsetX) > Math.abs(offsetY)) {
+        dir = offsetX > 0 ? "right" : "left";
+      } 
     }
   }
     componentDidMount(){
-      document.addEventListener('touchstart', (e) => this.handleSwipeEvent (e, "start"), true);
+      document.addEventListener('touchstart', function (){}, true);
     }
     render (){
       const { month, year, dayIsClicked, prevMonth } = this.state; 
@@ -242,16 +239,21 @@ class Calender extends React.Component{
         React.createElement(MonYearTitle, { month: months[month], year: year }), 
         React.createElement(WeekdayTitle, null), React.createElement("div", { 
           className: "dayCellsViewPoint", onTouchStart: e => this. handleSwipeEvent(e, "start"), 
-          ontouchEnd: e => this.handleSwipeEvent(e, "end")}, React.createElement(ReactCSSTransitionGroup, {
+          onTouchMove: e => this.handleSwipeEvent(e, "move"),
+          onTouchEnd: e => this.handleSwipeEvent(e, "end")}, React.createElement("div", {className: "dayCellsWrap"}, React.createElement(
+            ReactCSSTransitionGroup, {
             className: "animOffset",
             transitionName: `${transitionStyle}`,
             transitionEnterTimeout: 300,
             transitionLeaveTimeout: 300
           }, React.createElement(DayCells, { key: `${month}${year}`, month: month, year: year, dayIsClicked: dayIsClicked, 
-            onDayClick: this.handleDayClick })), React.createElement(MonthControl, { dir: "left", onArrowClick: this.handleMonthChange }), 
-            React.createElement(MonthControls, {dir: "right", onArrowClick: this.handleMonthChange}) ))
+            onDayClick: this.handleDayClick })), 
+            React.createElement(MonthControl, { dir: "left", onArrowClick: this.handleMonthChange }), 
+            React.createElement(MonthControl, {dir: "right", onArrowClick: this.handleMonthChange}) )))
     );
   }
 }
 
-ReactDOM.render(React.createElement("div", null, React.createElement(Calender, null)), document.getElementById("app"));
+ReactDOM.render(
+  React.createElement("div", null, React.createElement(Calender, null)), 
+  document.getElementById("app"));
