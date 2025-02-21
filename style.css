@@ -58,7 +58,7 @@ html span{
     margin-left: -700px;
 }
 
-.carouselDev-enter-active{
+.carouselDec-enter-active{
     margin-left: 0px;
     transition: all 300ms linear;
 }
