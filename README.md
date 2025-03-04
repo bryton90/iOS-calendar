@@ -30,7 +30,7 @@ To get started with the project, follow these steps:
 3. Open the project in your prefered IDE & build the application
 
 # Usage #
-Launch the application on your iOS device or simulator.
+Launch the application on your device or simulator.
 
 Start adding your events and managing your schedule!
 
